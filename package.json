@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "author": {
+    "name": "Blended Edge LLC",
+    "url": "https://www.blendededge.com"
+  },
   "scripts": {
     "dev": "sst dev",
     "build": "sst build",
