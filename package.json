@@ -7,6 +7,7 @@
     "name": "Blended Edge LLC",
     "url": "https://www.blendededge.com"
   },
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "sst dev",
     "build": "sst build",
