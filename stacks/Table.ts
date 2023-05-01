@@ -1,5 +1,4 @@
 import { RemovalPolicy } from "aws-cdk-lib";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { StackContext, Table } from "sst/constructs";
 
 export function SimpleTable({ stack }: StackContext) {

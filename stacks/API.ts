@@ -1,16 +1,10 @@
 import { AccessLogFormat, LogGroupLogDestination, RestApi, StepFunctionsIntegration, StepFunctionsRestApi, StepFunctionsRestApiProps } from "aws-cdk-lib/aws-apigateway";
-import { Api, ApiGatewayV1Api, StackContext, use } from "sst/constructs";
+import { StackContext, use } from "sst/constructs";
 import { StepFunction } from "./StepFunction";
-import { StateMachine } from "aws-cdk-lib/aws-stepfunctions";
-import { Fn } from "aws-cdk-lib";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
-import { Grant } from "aws-cdk-lib/aws-iam";
 
 export function API({ stack }: StackContext) {
   const cfnStateMachine = use(StepFunction);
-  // const stateMachine = StateMachine.fromStateMachineName(stack, "CrudStateMachine1", cfnStateMachine.ref);
-  // const stateMachineArn = Fn.importValue("CrudStateMachineArn");
-  // const stateMachine = StateMachine.fromStateMachineArn(stack, "CrudStateMachine", stateMachineArn);
   const stateMachine = cfnStateMachine;
   const apiLogGroup = new LogGroup(stack, 'Api-Gateway-Log-Group');
 

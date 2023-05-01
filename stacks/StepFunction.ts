@@ -1,6 +1,4 @@
-import * as path from "path";
-import { readFileSync } from "fs";
-import { CfnStateMachine, Choice, Condition, CustomState, JsonPath, LogLevel, StateMachine, StateMachineType } from "aws-cdk-lib/aws-stepfunctions";
+import { Choice, Condition, CustomState, JsonPath, LogLevel, StateMachine, StateMachineType } from "aws-cdk-lib/aws-stepfunctions";
 import { Stack, StackContext, Table, use } from "sst/constructs";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { DynamoAttributeValue, DynamoDeleteItem, DynamoGetItem, DynamoPutItem } from "aws-cdk-lib/aws-stepfunctions-tasks";
@@ -8,41 +6,11 @@ import { SimpleTable } from "./Table";
 
 export function StepFunction({ stack }: StackContext) {
     const table = use(SimpleTable);
-    // const logGroup = new LogGroup(stack, 'Crud-State-Machine-Log-Group')
-    // const aslFile = readFileSync(path.resolve("./crud.asl.json"));
-    // const cfnStateMachine = new CfnStateMachine(stack, "cfnstatemachine", {
-    //     definitionString: aslFile.toString(),
-    //     roleArn: `arn:aws:iam::${stack.account}:role/stepfunctions`,
-    //     stateMachineType: StateMachineType.EXPRESS,
-    //     loggingConfiguration: {
-    //         destinations: [
-    //             {
-    //                 cloudWatchLogsLogGroup: {
-    //                     logGroupArn: logGroup.logGroupArn,
-    //                 },
-    //             },
-    //         ],
-    //         level: 'ALL',
-    //         includeExecutionData: true,
-    //     },
-    //     tracingConfiguration: {
-    //         enabled: true,
-    //     },
-    // });
-    // stack.addOutputs({
-    //     CrudStateMachineArn: cfnStateMachine.attrArn,
-    // });
     return getStateMachine(stack, table);
 }
 
 function getStateMachine(stack: Stack, table: Table) {
     const logGroup = new LogGroup(stack, 'Crud-State-Machine-Log-Group1');
-    const aslFile = readFileSync(path.resolve("./crud.asl.json"));
-    const aslFileString = aslFile.toString();
-    // replace the table name with the actual table name
-    const aslFileStringWithTableName = aslFileString.replace(/\$\{DDBTable\}/g, table.cdk.table.tableName);
-    const aslObject = JSON.parse(aslFileStringWithTableName.toString());
-
 
     const scanStateJson = {
         "Type": "Task",
