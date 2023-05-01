@@ -9,7 +9,6 @@ export function API({ stack }: StackContext) {
   const apiLogGroup = new LogGroup(stack, 'Api-Gateway-Log-Group');
 
   const apiProps: StepFunctionsRestApiProps = {
-    restApiName: "sfnAPI",
     stateMachine,
     querystring: true,
     path: true,
